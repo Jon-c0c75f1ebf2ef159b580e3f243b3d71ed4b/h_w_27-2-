@@ -3,12 +3,12 @@
 #include <fstream>
 #include <iostream>
 
-class Logging
+class Logger
 {
 public:
-	Logging();
+	Logger();
 
-	~Logging();
+	~Logger();
 
 	void record(const std::string& sender, const std::string& recipient, const std::string& message);
 
