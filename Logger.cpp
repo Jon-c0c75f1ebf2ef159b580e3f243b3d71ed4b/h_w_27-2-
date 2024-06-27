@@ -1,20 +1,20 @@
-#include "logging.h"
+#include "Logger.h"
 
-Logging::Logging()
+Logger::Logger()
 {
 	_file = std::fstream("log.txt", std::ios::out | std::ios::app);
 
 	if (!_file) {
-		// Для создания файла используем параметр ios::trunc
+		// ios::trunc
 		_file = std::fstream("log.txt", std::ios::in | std::ios::out | std::ios::trunc);
 	}
 }
 
-Logging::~Logging() {
+Logger::~Logger() {
 	_file.close();
 }
 
-void Logging::record(const std::string& sender, const std::string& recipient, const std::string& message) {
+void Logger::record(const std::string& sender, const std::string& recipient, const std::string& message) {
 
 	if (_file) {
 		_file << sender + " " + recipient + " " + message + "\n";
@@ -26,7 +26,7 @@ void Logging::record(const std::string& sender, const std::string& recipient, co
 
 }
 
-void Logging::reading() {
+void Logger::reading() {
 	_file = std::fstream("log.txt", std::ios::in);
 
 	if (!_file) {
