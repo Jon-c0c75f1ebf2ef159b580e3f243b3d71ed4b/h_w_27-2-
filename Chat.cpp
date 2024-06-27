@@ -153,8 +153,8 @@ void Chat::addMessage()
 		messageArr_.push_back(Message{ currentUser_->getlog(), getUserName(to)->getlog(), text });
 	}
 
-	//std::thread thread_for_logging( log_entry, currentUser_->getlog(), to, text);
-	log_entry(currentUser_->getlog(), to, text);
+	std::thread thread_for_logging( log_entry, currentUser_->getlog(), to, text);
+	thread_for_logging.detach();
 }
 
 void Chat::log_entry(string sender, string to, string message)
@@ -165,26 +165,6 @@ void Chat::log_entry(string sender, string to, string message)
 	Logging logging2;
 	logging2.reading();
 	shared_mutex_log.unlock_shared();
-	
-	////shared_mutex shared_mutex_log;
-	////shared_mutex_log.lock_shared();
-	//std::thread thread_for_logging(//&Chat::log_entry, "","",""
-
-
-		/*
-		[](string sender, string to, string message) {
-			//Logging logging;
-			//logging.go(sender, to, message);
-		}
-	*/
-
-	//);
-	//detach
-	
-	//Logging logging;
-	//logging.go(sender, to, message);
-	////shared_mutex_log.unlock_shared();
-	////thread_for_logging.join();
 }
 
 void Chat::showLoginMenu()
