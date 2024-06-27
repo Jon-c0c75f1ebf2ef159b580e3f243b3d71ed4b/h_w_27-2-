@@ -1,8 +1,4 @@
 #include "Chat.h"
-#include <iostream>
-//#include <memory>
-//#include <exception>
-
 
 void Chat::startChat()
 {
@@ -11,8 +7,9 @@ void Chat::startChat()
 	info_system.something();
 	loadUsers();
 	loadMessages();
-	if (userArr_.empty())
+	if (userArr_.empty()) {
 		test_contetnt();
+	}
 }
 
 shared_ptr <User> Chat::getUserLog(const string& login) const
@@ -23,7 +20,6 @@ shared_ptr <User> Chat::getUserLog(const string& login) const
 		{
 			return make_shared<User>(user);
 		}
-
 	}
 	return nullptr;
 }
@@ -36,7 +32,6 @@ shared_ptr <User> Chat::getUserName(const string& name) const
 		{
 			return make_shared<User>(user);
 		}
-
 	}
 	return nullptr;
 }
@@ -122,18 +117,17 @@ void Chat::showUserMenu()
 			break;
 
 		default:
-			cout << "Vvedite 1,2,3" << endl;
+			cout << "Enter 1,2,3" << endl;
 		}
 	}
-
 }
 
 void Chat::addMessage()
 {
 	string to, text;
-	cout << "Vvedite name, or all" << endl;
+	cout << "Enter name, or all" << endl;
 	cin >> to;
-	cout << "vvedite message" << endl;
+	cout << "Enter message" << endl;
 	cin.ignore();
 	getline(cin, text);
 
@@ -160,9 +154,9 @@ void Chat::addMessage()
 void Chat::log_entry(string sender, string to, string message)
 {
 	shared_mutex_log.lock_shared();
-	Logging logging;
+	Logger logging;
 	logging.record(sender, to, message);
-	Logging logging2;
+	Logger logging2;
 	logging2.reading();
 	shared_mutex_log.unlock_shared();
 }
@@ -230,7 +224,6 @@ void Chat::showChat() const
 		cout << "from: " << from << " to: " << to << endl;
 		cout << " text " << message.getText() << endl;
 	}
-
 }
 
 void Chat::showAllUsers() const
@@ -281,7 +274,7 @@ void Chat::saveUsers()
 {
 	std::fstream users_file = std::fstream("users.dat", std::ios::in | std::ios::out);
 	if (!users_file) {
-		// Для создания файла используем параметр ios::trunc
+		// ios::trunc
 		users_file = std::fstream("users.dat", std::ios::in | std::ios::out | std::ios::trunc);
 	}
 
@@ -296,7 +289,7 @@ void Chat::saveMessages()
 {
 	std::fstream messages_file = std::fstream("messahes.dat", std::ios::in | std::ios::out);
 	if (!messages_file) {
-		// Для создания файла используем параметр ios::trunc
+		// ios::trunc
 		messages_file = std::fstream("messahes.dat", std::ios::in | std::ios::out | std::ios::trunc);
 	}
 
